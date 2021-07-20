@@ -4,9 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SandBox"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:my="clr-namespace:SandBox"
         
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        x:Name="My" Loaded="My_Loaded">
+    <Grid>
+        <my:ParentChildTreeView
+            VirtualizingStackPanel.IsVirtualizing="False" VirtualizingStackPanel.VirtualizationMode="Standard"
+            x:Name="treeView" ItemsSource="{Binding Path=RootObjects, ElementName=My}" SelectedItemChanged="treeView_SelectedItemChanged">
+
+            <!--<my:ParentChildTreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </my:ParentChildTreeView.ItemContainerStyle>-->
+            <my:ParentChildTreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </my:ParentChildTreeView.ItemTemplate>
+        </my:ParentChildTreeView>
     </Grid>
 </Window>
