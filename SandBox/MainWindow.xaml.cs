@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace SandBox
 {
@@ -19,6 +17,7 @@ namespace SandBox
             InitializeComponent();
         }
 
+        #region Test_TreeView
         private BindingList<MyClassT> rootObjects = new BindingList<MyClassT>();
         public BindingList<MyClassT> RootObjects
         {
@@ -54,14 +53,9 @@ namespace SandBox
 
             Debug.WriteLine(myClass.ParentData.Name);
         }
+        #endregion
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            CallValueTypeCompareMethod();
-
-        }
-
+        #region Test_CallMethod
         private void CallTypeTestMethod()
         {
             List<TestClass> test = new List<TestClass>();
@@ -95,7 +89,8 @@ namespace SandBox
             st.Start();
             #endregion
 
-            TestClass temp1 = test.Find(x => x.Name.Equals(findStr));
+            //TestClass temp1 = test.Find(x => x.Name.Equals(findStr));
+            TestClass temp1 = test.Find(x => x.Name.Equals(findStrLow, StringComparison.CurrentCultureIgnoreCase));
 
             #region test
             st.Stop();
@@ -180,144 +175,15 @@ namespace SandBox
             st.Stop();
             Console.WriteLine("Test {0} [{1}]\t", st.ElapsedMilliseconds, st.ElapsedTicks);
         }
+        #endregion
+
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            CallTypeTestMethod();
+
+        }
+        
     }
-
-    public class TestClass
-    {
-        private string _name = "";
-        public string Name 
-        {
-            get { return _name; }
-            set
-            {
-                if(_name != value)
-                {
-                    _name = value;
-
-                }
-            }
-        }
-
-        public int value { get; set; } = 0;
-
-        public string testValue1 { get; set; } = "0.0";
-
-        public double testValue2 { get; set; } = 0.0;
-
-
-
-        public void callMe(Queue<TestClass> que, string name)
-        {
-            if(Name.Equals(name))
-            {
-                que.Enqueue(this);
-
-                value = 1;
-            }
-        }
-
-
-    }
-
-    public interface ITreeViewParentLink
-    {
-        TreeViewItem ParentItem { get; set; }
-    }
-
-    public class MyClassT : ViewModelBase, ITreeViewParentLink
-    {
-        TreeViewItem parentItem;
-        public TreeViewItem ParentItem
-        {
-            get { return this.parentItem; }
-            set { this.parentItem = value; }
-        }
-
-        public MyClassT ParentData
-        {
-            get
-            {
-                if (this.parentItem == null)
-                {
-                    return null;
-                }
-
-                return this.parentItem.DataContext as MyClassT;
-            }
-        }
-
-        private BindingList<MyClassT> children;
-        public BindingList<MyClassT> Children
-        {
-            get { return this.children; }
-            set
-            {
-                this.children = value;
-                OnPropertyChanged();
-            }
-        }
-
-        /// <remarks/>
-        private string name;
-        public string Name
-        {
-            get { return this.name; }
-            set { this.name = value; OnPropertyChanged(); }
-        }
-    }
-
-    public class ParentChildTreeView : TreeView
-    {
-        public class ParentChildTreeViewItem : TreeViewItem
-        {
-            public ParentChildTreeViewItem()
-                : base()
-            {
-            }
-
-            protected override void PrepareContainerForItemOverride(DependencyObject element, object item)
-            {
-                base.PrepareContainerForItemOverride(element, item);
-
-                ITreeViewParentLink support = item as ITreeViewParentLink;
-                if (support == null)
-                {
-                    return;
-                }
-
-                support.ParentItem = ItemsControl.ItemsControlFromItemContainer(element) as TreeViewItem;
-            }
-
-            protected override DependencyObject GetContainerForItemOverride()
-            {
-                return new ParentChildTreeViewItem();
-            }
-        }
-
-        protected override DependencyObject GetContainerForItemOverride()
-        {
-            return new ParentChildTreeViewItem();
-        }
-    }
-
-    public class ViewModelBase : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected bool Set<T>(ref T field, T newValue = default(T), string propertyName = null)
-        {
-            if (EqualityComparer<T>.Default.Equals(newValue))
-            {
-                return false;
-            }
-            field = newValue;
-            OnPropertyChanged(propertyName);
-            return true;
-        }
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-    }
+    
 }
