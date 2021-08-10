@@ -180,8 +180,8 @@ namespace SandBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Test_CallAppWithSSH.DoSomething();
 
+            var temp = Test_ConfigFileNasaStyle.instance.LoadFile(@"C:\Users\Garfield\Desktop\ConfigFileNasaStyle\Sample_Inp_Sim.txt");
         }
         
     }
