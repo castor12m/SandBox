@@ -181,7 +181,18 @@ namespace SandBox
         private void Button_Click(object sender, RoutedEventArgs e)
         {
 
-            var temp = Test_ConfigFileNasaStyle.instance.LoadFile(@"C:\Users\Garfield\Desktop\ConfigFileNasaStyle\Sample_Inp_Sim.txt");
+            //var temp = Test_ConfigFileNasaStyle.instance.LoadFile(@"C:\Users\Garfield\Desktop\ConfigFileNasaStyle\Sample_SC_xx.txt");
+
+            //Test_ConfigFileNasaStyle.instance.SaveFile(@"C:\Users\Garfield\Desktop\temp.txt", temp);
+
+            Stopwatch st = new Stopwatch();
+            st.Reset();
+            st.Start();
+
+            var temp = Test_ConfigFileNasaStyle.instance.LoadFile(@"C:\Users\Garfield\Desktop\temp.txt");
+
+            st.Stop();
+
         }
         
     }
