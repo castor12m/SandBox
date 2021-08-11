@@ -180,21 +180,35 @@ namespace SandBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-
+            #region Test_ConfigFileNasaStyle
+#if false
             //var temp = Test_ConfigFileNasaStyle.instance.LoadFile(@"C:\Users\Garfield\Desktop\ConfigFileNasaStyle\Sample_SC_xx.txt");
-
             //Test_ConfigFileNasaStyle.instance.SaveFile(@"C:\Users\Garfield\Desktop\temp.txt", temp);
-
             Stopwatch st = new Stopwatch();
             st.Reset();
             st.Start();
-
-            var temp = Test_ConfigFileNasaStyle.instance.LoadFile(@"C:\Users\Garfield\Desktop\temp.txt");
-
+            var temp = Test_ConfigFileNasaStyle.SharedInstance.LoadFile(@"C:\Users\Garfield\Desktop\temp.txt");
             st.Stop();
+#endif
+            #endregion
+
+            #region Test_PlayByTimeSeriesForHogaPlay
+#if true
+            if (Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.bgWorkRunRequest)
+            {
+                Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Stop();
+            }
+            else
+            {
+                Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Start();
+            }
+#endif
+            #endregion
+
+
 
         }
-        
+
     }
     
 }

@@ -59,9 +59,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalSharedInstanceModel.cs" />
+    <Compile Include="MainWindowViewModel.cs" />
+    <Compile Include="SampleCommand.cs" />
     <Compile Include="Test_CallAppWithSSH\Test_CallAppWithSSH.cs" />
     <Compile Include="Test_CallMethod\Test_CallMethod.cs" />
     <Compile Include="Test_ConfigFileNasaStyle\Test_ConfigFileNasaStyle.cs" />
+    <Compile Include="Test_PlayByTimeSeriesForHogaPlay\Test_PlayBYTimeSeriesForHogaPlay.cs" />
     <Compile Include="Test_TreeView\Test_TreeView.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">

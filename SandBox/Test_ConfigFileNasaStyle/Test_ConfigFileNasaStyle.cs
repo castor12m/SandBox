@@ -9,7 +9,27 @@ namespace SandBox
 {
     public class Test_ConfigFileNasaStyle
     {
-        public static Test_ConfigFileNasaStyle instance = new Test_ConfigFileNasaStyle();
+        #region 접근자
+        private static Test_ConfigFileNasaStyle _instance = null;
+
+        private static readonly object padlock = new object();
+        public static Test_ConfigFileNasaStyle SharedInstance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new Test_ConfigFileNasaStyle();
+                    }
+
+                    return _instance;
+                }
+            }
+        }
+        #endregion
+
 
         private NasaFileTreeModel[] dicTreeSim = new NasaFileTreeModel[]
         {
