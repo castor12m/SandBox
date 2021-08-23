@@ -215,12 +215,17 @@ namespace SandBox
 
         public ICommand CmdBindingTest1 => new SampleCommand(x => true, o => DoTest1());
 
+        NetMqServer netMqServer;
         private void DoTest1()
         {
             try
             {
 #if true
-                Test_NetMq.SharedInstance.DoSever();
+                netMqServer = new NetMqServer();
+                netMqServer.Init("127.0.0.1", 5555);
+                netMqServer.Start();
+
+                //Test_NetMq.SharedInstance.DoSever();
 #endif
             }
             catch (Exception ex)
@@ -231,12 +236,17 @@ namespace SandBox
 
         public ICommand CmdBindingTest2 => new SampleCommand(x => true, o => DoTest2());
 
+        NetMqClient netMqClient;
         private void DoTest2()
         {
             try
             {
 #if true
-                Test_NetMq.SharedInstance.DoClient();
+                netMqClient = new NetMqClient();
+                netMqClient.Init("192.168.0.69", 5555);
+                netMqClient.Start();
+
+                //Test_NetMq.SharedInstance.DoClient();
 #endif
             }
             catch (Exception ex)
@@ -252,7 +262,7 @@ namespace SandBox
             try
             {
 #if true
-
+                netMqServer.Send("test from window");
 #endif
             }
             catch (Exception ex)
@@ -268,7 +278,7 @@ namespace SandBox
             try
             {
 #if true
-
+                netMqClient.Send("test from window");
 #endif
             }
             catch (Exception ex)
