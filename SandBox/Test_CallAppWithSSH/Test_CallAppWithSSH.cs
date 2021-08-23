@@ -5,7 +5,29 @@ namespace SandBox
 {
     public class Test_CallAppWithSSH
     {
-        static public void DoSomething()
+        #region 접근자
+        private static Test_CallAppWithSSH _instance = null;
+
+        private static readonly object padlock = new object();
+        public static Test_CallAppWithSSH SharedInstance
+        {
+            get
+            {
+                lock (padlock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new Test_CallAppWithSSH();
+                    }
+
+                    return _instance;
+                }
+            }
+        }
+        #endregion
+
+        #region 매소드
+        public void DoSomething()
         {
             var ci = new ConnectionInfo("127.0.0.1",
                     "user",
@@ -17,6 +39,7 @@ namespace SandBox
 
             cli.Connect();
 
+            #region Example
             // (1) 간단한 표현
             //var output = cli.CreateCommand("ls -al").Execute();
             //Console.WriteLine(output);
@@ -46,10 +69,9 @@ namespace SandBox
             //{
             //    Console.WriteLine(cmd2.Result); //결과
             //}
+            #endregion
 
-
-
-            SshCommand cmd2 = cli.RunCommand("/home/user/simspace/42/42_RemoteExecutor.sh");
+            SshCommand cmd2 = cli.RunCommand("export DISPLAY=192.168.0.69:0;/home/user/simspace/42/42_RemoteExecutor.sh");
             if (cmd2.ExitStatus == 0)
             {
                 Console.WriteLine(cmd2.Result); //결과
@@ -57,5 +79,8 @@ namespace SandBox
 
             cli.Disconnect();
         }
+        #endregion
+
+
     }
 }
