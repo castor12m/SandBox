@@ -6,14 +6,14 @@
         xmlns:my="clr-namespace:SandBox"
         
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="600" Width="800"
         x:Name="My" Loaded="My_Loaded">
     <Window.DataContext>
         <my:MainWindowViewModel/>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -43,6 +43,14 @@
             <Button Content="Non Binding Button Test 0" Height="30" Click="Button_Click"/>
             <Label/>
             <Button Content="Binding Button Test 0" Height="30" Command="{Binding CmdBindingTest0}"/>
+            <Label/>
+            <Button Content="Binding Button Test 1" Height="30" Command="{Binding CmdBindingTest1}"/>
+            <Label/>
+            <Button Content="Binding Button Test 2" Height="30" Command="{Binding CmdBindingTest2}"/>
+            <Label/>
+            <Button Content="Binding Button Test 3" Height="30" Command="{Binding CmdBindingTest3}"/>
+            <Label/>
+            <Button Content="Binding Button Test 4" Height="30" Command="{Binding CmdBindingTest4}"/>
             <Label/>
 
         </StackPanel>

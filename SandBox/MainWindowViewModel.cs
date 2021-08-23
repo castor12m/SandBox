@@ -189,8 +189,8 @@ namespace SandBox
         #endregion
 
         #region 커맨드변수
-        public ICommand CmdBindingTest0 => new SampleCommand(x => true, o => DoTest());
-        private void DoTest()
+        public ICommand CmdBindingTest0 => new SampleCommand(x => true, o => DoTest0());
+        private void DoTest0()
         {
             try
             {
@@ -212,6 +212,72 @@ namespace SandBox
                 Console.WriteLine("{0}", ex.Message);
             }
         }
+
+        public ICommand CmdBindingTest1 => new SampleCommand(x => true, o => DoTest1());
+
+        private void DoTest1()
+        {
+            try
+            {
+#if true
+                Test_NetMq.SharedInstance.DoSever();
+#endif
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
+        public ICommand CmdBindingTest2 => new SampleCommand(x => true, o => DoTest2());
+
+        private void DoTest2()
+        {
+            try
+            {
+#if true
+                Test_NetMq.SharedInstance.DoClient();
+#endif
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
+        public ICommand CmdBindingTest3 => new SampleCommand(x => true, o => DoTest3());
+
+        private void DoTest3()
+        {
+            try
+            {
+#if true
+
+#endif
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
+        public ICommand CmdBindingTest4 => new SampleCommand(x => true, o => DoTest4());
+
+        private void DoTest4()
+        {
+            try
+            {
+#if true
+
+#endif
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
+        
 
         private void ForceStop()
         {
