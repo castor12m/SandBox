@@ -1,8 +1,13 @@
-﻿using System;
+﻿//#define BgWorker_background_method
+//#define BgWorker_thread_method
+#define BgWorker_timer_method
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace SandBox
 {
@@ -32,10 +37,15 @@ namespace SandBox
         #region 맴버변수
 
         private List<DateTime> dateTimeList = null;
-
-        //private BackgroundWorker bgWorker;
-
+#if BgWorker_background_method
+        private BackgroundWorker bgWorker;
+#endif
+#if BgWorker_thread_method
         private Thread bgWorker;
+#endif
+#if BgWorker_timer_method
+        private Timer bgWorker;
+#endif
 
         public bool bgWorkRunRequest { get; private set; } = false;
 
@@ -58,11 +68,16 @@ namespace SandBox
 
             dateTimeList = new List<DateTime>();
 
-            for (int i = 0; i < 100; i++)
+            //for (int i = 0; i < 390; i++)
+            //{
+            //    dateTimeList.Add(dateTime);
+            //    dateTime = dateTime.AddMinutes(1);
+            //}
+
+            for (int i = 0; i < 1000; i++)
             {
                 dateTimeList.Add(dateTime);
-
-                dateTime = dateTime.AddMinutes(3);
+                dateTime = dateTime.AddMilliseconds(1);
             }
 
             Init();
@@ -74,13 +89,18 @@ namespace SandBox
         {
             try
             {
-
-                //bgWorker = new BackgroundWorker();
-                //bgWorker.WorkerSupportsCancellation = true;
-                //bgWorker.DoWork += BgWorker_DoWork;
-
+#if BgWorker_background_method
+                bgWorker = new BackgroundWorker();
+                bgWorker.WorkerSupportsCancellation = true;
+                bgWorker.DoWork += BgWorker_DoWork;
+#endif
+#if BgWorker_thread_method
                 bgWorker = new Thread(Loop);
                 bgWorker.IsBackground = true;
+#endif
+#if BgWorker_timer_method
+                //
+#endif
 
                 playWatch.Reset();
                
@@ -116,9 +136,15 @@ namespace SandBox
 
                 bgWorkRunRequest = true;
 
-                //bgWorker.RunWorkerAsync();
-
+#if BgWorker_background_method
+                bgWorker.RunWorkerAsync();
+#endif
+#if BgWorker_thread_method
                 bgWorker.Start();
+#endif
+#if BgWorker_timer_method
+                bgWorker = new Timer(bgWorker_CallBack, null, 1, 10);
+#endif
 
                 playWatch.Start();
 
@@ -132,6 +158,8 @@ namespace SandBox
             }
         }
 
+        
+
         public bool Stop()
         {
             try
@@ -144,9 +172,15 @@ namespace SandBox
 
                 Thread.Sleep(1);
 
-                //bgWorker.CancelAsync();
-
+#if BgWorker_background_method
+                bgWorker.CancelAsync();
+#endif
+#if BgWorker_thread_method
                 bgWorker.Abort();
+#endif
+#if BgWorker_timer_method
+                bgWorker?.Dispose();
+#endif
 
                 return true;
             }
@@ -175,7 +209,92 @@ namespace SandBox
                 return false;
             }
         }
-        
+        private void bgWorker_CallBack(object state)
+        {
+            try
+            {
+                bgWorker_CallBack_Event();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
+        private async void bgWorker_CallBack_Event()
+        {
+            try
+            {
+                var task1 = Task.Run(() =>
+                {
+                    FastReader();
+
+                    return 1;
+                });
+
+                // task1이 끝나길 기다렸다가 끝나면 결과치를 sum에 할당
+                int sum = await task1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
+        private static readonly object lockFastReader = new object();
+        private async void FastReader()
+        {
+            try
+            {
+                lock(lockFastReader)
+                {
+                    while (true)
+                    {
+                        if (dateTimeBuf == null)
+                        {
+                            if (dateTimeList.Count > 0 && listIdexCount < dateTimeList.Count && listIdexCount >= 0)
+                            {
+                                dateTimeBuf = dateTimeList[listIdexCount];
+                            }
+
+                        }
+                        else
+                        {
+                            long playWatchElapse = (long)(playWatch.GetElapse());
+
+                            if (playWatchElapse >= GetElapsePlayTime((DateTime)dateTimeBuf))
+                            {
+                                Console.WriteLine("[{0:D3}] {1}, real {2}", listIdexCount++, ((DateTime)dateTimeBuf).ToString("HH:mm:ss.fff"), DateTime.Now.ToString("HH:mm:ss.fff"));
+
+                                dateTimeBuf = null;
+
+                            }
+
+                            if (playWatchElapse >= GetElapsePlayTime(playTimeStandardLastTime))
+                            {
+                                Stop();
+                                break;
+                            }
+                        }
+
+                        if (dateTimeBuf == null)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            //Thread.Sleep(1);
+                            continue;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
         private void BgWorker_DoWork(object sender, DoWorkEventArgs e)
         {
             try

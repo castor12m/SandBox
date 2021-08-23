@@ -1,9 +1,14 @@
-﻿using System;
+﻿#define Test_CallAppWithSSH
+//#define Test_ConfigFileNasaStyle
+//#define Test_PlayByTimeSeriesForHogaPlay
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Windows;
+
 
 namespace SandBox
 {
@@ -180,8 +185,15 @@ namespace SandBox
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            #region MyRegion
+#if Test_CallAppWithSSH
+
+            Test_CallAppWithSSH.SharedInstance.DoSomething();
+#endif
+            #endregion
+
             #region Test_ConfigFileNasaStyle
-#if false
+#if Test_ConfigFileNasaStyle
             //var temp = Test_ConfigFileNasaStyle.instance.LoadFile(@"C:\Users\Garfield\Desktop\ConfigFileNasaStyle\Sample_SC_xx.txt");
             //Test_ConfigFileNasaStyle.instance.SaveFile(@"C:\Users\Garfield\Desktop\temp.txt", temp);
             Stopwatch st = new Stopwatch();
@@ -193,7 +205,7 @@ namespace SandBox
             #endregion
 
             #region Test_PlayByTimeSeriesForHogaPlay
-#if true
+#if Test_PlayByTimeSeriesForHogaPlay
             if (Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.bgWorkRunRequest)
             {
                 Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Stop();

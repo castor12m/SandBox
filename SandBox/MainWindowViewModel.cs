@@ -1,6 +1,11 @@
-﻿using System;
+﻿//#define BgWorker_background_method
+//#define BgWorker_thread_method
+#define BgWorker_timer_method
+
+using System;
 using System.ComponentModel;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SandBox
@@ -8,9 +13,17 @@ namespace SandBox
     public class MainWindowViewModel : ViewModelBase
     {
         #region 맴버변수
-        //private BackgroundWorker bgWorker;
 
+#if BgWorker_background_method
+        private BackgroundWorker bgWorker;
+#endif
+#if BgWorker_thread_method
         private Thread bgWorker;
+#endif
+#if BgWorker_timer_method
+        private Timer bgWorker;
+#endif
+
 
         public bool bgWorkRunRequest { get; private set; } = false;
 
@@ -104,12 +117,54 @@ namespace SandBox
         #region 생성자
         public MainWindowViewModel()
         {
-            //bgWorker = new BackgroundWorker();
-            //bgWorker.WorkerSupportsCancellation = true;
-            //bgWorker.DoWork += BgWorker_DoWork;
 
+#if BgWorker_background_method
+            bgWorker = new BackgroundWorker();
+            bgWorker.WorkerSupportsCancellation = true;
+            bgWorker.DoWork += BgWorker_DoWork;
+#endif
+#if BgWorker_thread_method
             bgWorker = new Thread(Loop);
-            bgWorker.IsBackground = true;
+            //bgWorker.IsBackground = true;
+#endif
+
+        }
+
+        private void bgWorker_CallBack(object state)
+        {
+            try
+            {
+                bgWorker_CallBack_Event();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
+        }
+
+        private async void bgWorker_CallBack_Event()
+        {
+            try
+            {
+                var task1 = Task.Run(() =>
+                {
+                    GlobalSharedInstanceModel.SharedInstance.CurrentTimePosition = Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.GetPlayWatchTime();
+
+                    OnPropertyChanged("PlayTime");
+                    OnPropertyChanged("PlayHour");
+                    OnPropertyChanged("PlayMin");
+                    OnPropertyChanged("PlaySec");
+
+                    return 1;
+                });
+
+                // task1이 끝나길 기다렸다가 끝나면 결과치를 sum에 할당
+                int sum = await task1;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
         }
 
         private void BgWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -160,23 +215,57 @@ namespace SandBox
 
         private void ForceStop()
         {
-            if(bgWorkRunRequest)
+            try
             {
-                Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Stop();
-                bgWorkRunRequest = false;
-                //bgWorker.CancelAsync();
-                bgWorker.Abort();
+                if (bgWorkRunRequest)
+                {
+                    Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Stop();
+                    bgWorkRunRequest = false;
+                    
+                    Thread.Sleep(1);
+
+#if BgWorker_background_method
+                    bgWorker.CancelAsync();
+#endif
+#if BgWorker_thread_method
+                    bgWorker.Abort();
+                    //bgWorker.Join();
+#endif
+#if BgWorker_timer_method
+                    bgWorker?.Dispose();
+#endif
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
             }
         }
 
         private void ForceStart()
         {
-            Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Reset();
+            try
+            {
+                Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Reset();
 
-            bgWorkRunRequest = true;
-            //bgWorker.RunWorkerAsync();
-            bgWorker.Start();
-            Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Start();
+                bgWorkRunRequest = true;
+
+#if BgWorker_background_method
+                bgWorker.RunWorkerAsync();
+#endif
+#if BgWorker_thread_method
+                bgWorker.Start();
+#endif
+#if BgWorker_timer_method
+                bgWorker = new Timer(bgWorker_CallBack, null, 1, 1);
+#endif
+
+                Test_PlayBYTimeSeriesForHogaPlay.SharedInstance.Start();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("{0}", ex.Message);
+            }
         }
         #endregion
 
