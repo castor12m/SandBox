@@ -2,8 +2,11 @@
 //#define BgWorker_thread_method
 #define BgWorker_timer_method
 
+using NetMQ;
+using NetMQ.Sockets;
 using System;
 using System.ComponentModel;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -220,12 +223,17 @@ namespace SandBox
         {
             try
             {
-#if true
+#if false
                 netMqServer = new NetMqServer();
                 netMqServer.Init("127.0.0.1", 5555);
                 netMqServer.Start();
-
-                //Test_NetMq.SharedInstance.DoSever();
+#else
+                //Task task = new Task(() =>
+                //{
+                    Test_NetMq.SharedInstance.DoSever();
+                //});
+                //task.Start();
+                
 #endif
             }
             catch (Exception ex)
@@ -241,12 +249,12 @@ namespace SandBox
         {
             try
             {
-#if true
+#if false
                 netMqClient = new NetMqClient();
                 netMqClient.Init("192.168.0.69", 5555);
                 netMqClient.Start();
-
-                //Test_NetMq.SharedInstance.DoClient();
+#else
+                Test_NetMq.SharedInstance.DoClient();
 #endif
             }
             catch (Exception ex)

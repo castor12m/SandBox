@@ -94,6 +94,7 @@
     <Compile Include="Test_CallAppWithSSH\Test_CallAppWithSSH.cs" />
     <Compile Include="Test_CallMethod\Test_CallMethod.cs" />
     <Compile Include="Test_ConfigFileNasaStyle\Test_ConfigFileNasaStyle.cs" />
+    <Compile Include="Test_DelayFunction\Test_DelayFunction.cs" />
     <Compile Include="Test_NetMq\Test_NetMq.cs" />
     <Compile Include="Test_PlayByTimeSeriesForHogaPlay\Test_PlayBYTimeSeriesForHogaPlay.cs" />
     <Compile Include="Test_TreeView\Test_TreeView.cs" />
