@@ -91,6 +91,7 @@
     <Compile Include="GlobalSharedInstanceModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
     <Compile Include="SampleCommand.cs" />
+    <Compile Include="Test_CalculatePowerWithSampleRate\Test_CalculatePowerWithSampleRate.cs" />
     <Compile Include="Test_CallAppWithSSH\Test_CallAppWithSSH.cs" />
     <Compile Include="Test_CallMethod\Test_CallMethod.cs" />
     <Compile Include="Test_ConfigFileNasaStyle\Test_ConfigFileNasaStyle.cs" />
