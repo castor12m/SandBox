@@ -1,21 +1,18 @@
 ﻿using NetMQ;
 using NetMQ.Sockets;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace SandBox
 {
-    public class Test_NetMq
+    public class Test_XX_NetMq
     {
         #region 접근자
-        private static Test_NetMq _instance = null;
+        private static Test_XX_NetMq _instance = null;
 
         private static readonly object padlock = new object();
-        public static Test_NetMq SharedInstance
+        public static Test_XX_NetMq SharedInstance
         {
             get
             {
@@ -23,7 +20,7 @@ namespace SandBox
                 {
                     if (_instance == null)
                     {
-                        _instance = new Test_NetMq();
+                        _instance = new Test_XX_NetMq();
                     }
 
                     return _instance;

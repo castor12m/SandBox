@@ -22,7 +22,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -88,17 +88,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="GlobalOptionDefine.cs" />
     <Compile Include="GlobalSharedInstanceModel.cs" />
     <Compile Include="MainWindowViewModel.cs" />
-    <Compile Include="SampleCommand.cs" />
-    <Compile Include="Test_CalculatePowerWithSampleRate\Test_CalculatePowerWithSampleRate.cs" />
-    <Compile Include="Test_CallAppWithSSH\Test_CallAppWithSSH.cs" />
-    <Compile Include="Test_CallMethod\Test_CallMethod.cs" />
-    <Compile Include="Test_ConfigFileNasaStyle\Test_ConfigFileNasaStyle.cs" />
-    <Compile Include="Test_DelayFunction\Test_DelayFunction.cs" />
-    <Compile Include="Test_NetMq\Test_NetMq.cs" />
-    <Compile Include="Test_PlayByTimeSeriesForHogaPlay\Test_PlayBYTimeSeriesForHogaPlay.cs" />
-    <Compile Include="Test_TreeView\Test_TreeView.cs" />
+    <Compile Include="PageUseCodebehind.xaml.cs">
+      <DependentUpon>PageUseCodebehind.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUseMvvm.xaml.cs">
+      <DependentUpon>PageUseMvvm.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="PageUseMvvmViewModel.cs" />
+    <Compile Include="SimpleCommand.cs" />
+    <Compile Include="Test_MV_CalculatePowerWithSampleRate\Test_MV_CalculatePowerWithSampleRate.cs" />
+    <Compile Include="Test_CB_CallAppWithSSH\Test_CallAppWithSSH.cs" />
+    <Compile Include="Test_XX_CallMethod\Test_XX_CallMethod.cs" />
+    <Compile Include="Test_CB_ConfigFileNasaStyle\Test_CB_ConfigFileNasaStyle.cs" />
+    <Compile Include="Test_XX_DelayFunction\Test_XX_DelayFunction.cs" />
+    <Compile Include="Test_XX_NetMq\Test_XX_NetMq.cs" />
+    <Compile Include="Test_CB_PlayByTimeSeriesForHogaPlay\Test_CB_PlayBYTimeSeriesForHogaPlay.cs" />
+    <Compile Include="Test_MV_SimModuleDevConcept\Test_MV_SimModuleDevConcept.cs" />
+    <Compile Include="Test_MV_SimModuleDevConcept\Test_MV_SimModuleDevConcept_VM.cs" />
+    <Compile Include="Test_CB_TreeView\Test_CB_TreeView.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -112,6 +122,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="PageUseCodebehind.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="PageUseMvvm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">

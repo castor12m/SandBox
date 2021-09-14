@@ -1,0 +1,95 @@
+﻿<Page x:Class="SandBox.PageUseCodebehind"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:SandBox"
+      xmlns:my="clr-namespace:SandBox"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageUseCodebehind"
+      x:Name="My" Loaded="My_Loaded">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <my:ParentChildTreeView Grid.Row="0" Grid.Column="0"
+            VirtualizingStackPanel.IsVirtualizing="False" VirtualizingStackPanel.VirtualizationMode="Standard"
+            x:Name="treeView" ItemsSource="{Binding Path=RootObjects, ElementName=My}" SelectedItemChanged="treeView_SelectedItemChanged">
+
+            <!--<my:ParentChildTreeView.ItemContainerStyle>
+                <Style TargetType="{x:Type TreeViewItem}">
+                    <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+                    <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+                </Style>
+            </my:ParentChildTreeView.ItemContainerStyle>-->
+            <my:ParentChildTreeView.ItemTemplate>
+                <HierarchicalDataTemplate ItemsSource="{Binding Children}">
+                    <TextBlock Text="{Binding Name}" />
+                </HierarchicalDataTemplate>
+            </my:ParentChildTreeView.ItemTemplate>
+        </my:ParentChildTreeView>
+
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <Button Content="Non Binding Button Test 0" Height="30" Click="Button_Click"/>
+            <Label/>
+            <Button Content="Binding Button Test 0" Height="30" Command="{Binding CmdBindingTest0}"/>
+            <Label/>
+            <Button x:Name="btnText1" Content="Binding Button Test 1 (Server Open)" Height="30" Command="{Binding CmdBindingTest1}"/>
+            <Label/>
+            <Button x:Name="btnText2" Content="Binding Button Test 2 (Client Open)" Height="30" Command="{Binding CmdBindingTest2}"/>
+            <Label/>
+            <Button x:Name="btnText3" Content="Binding Button Test 3 (Server Send)" Height="30" Command="{Binding CmdBindingTest3}"/>
+            <Label/>
+            <Button x:Name="btnText4" Content="Binding Button Test 4 (Client Send)" Height="30" Command="{Binding CmdBindingTest4}"/>
+            <Label/>
+            <Button x:Name="btnText5" Content="Binding Button Test 5 (Client Send)" Height="30" Command="{Binding CmdBindingTest5}"/>
+            <Label/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="90"/>
+                </Grid.ColumnDefinitions>
+
+                <Slider Value="{Binding PlayTime}"  Minimum="0" Maximum="395" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBox Text="{Binding PlayHour, StringFormat={}{0:00}}" MaxLength="2" MaxLines="1" Width="20" />
+                    <Label Content=":"/>
+                    <TextBox Text="{Binding PlayMin, StringFormat={}{0:00}}" MaxLength="2" MaxLines="1" Width="20"/>
+                    <Label Content=":"/>
+                    <TextBox Text="{Binding PlaySec, StringFormat={}{0:00}}" MaxLength="2" MaxLines="1" Width="20"/>
+                </StackPanel>
+            </Grid>
+
+            <Label/>
+
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="25"/>
+                </Grid.ColumnDefinitions>
+
+                <Slider Grid.Column="1" Value="{Binding PlaySpeed}"  Minimum="0" Maximum="16" TickFrequency="1" IsSnapToTickEnabled="True" TickPlacement="BottomRight"/>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal">
+                    <TextBlock Text="{Binding PlaySpeedDisplay}" Width="25" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>

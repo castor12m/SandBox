@@ -2,11 +2,7 @@
 
 namespace SandBox
 {
-    class Test_CallMethod
-    {
-    }
-
-    public class TestClass
+    public class Test_XX_CallMethod
     {
         private string _name = "";
         public string Name
@@ -30,7 +26,7 @@ namespace SandBox
 
 
 
-        public void callMe(Queue<TestClass> que, string name)
+        public void callMe(Queue<Test_XX_CallMethod> que, string name)
         {
             if (Name.Equals(name))
             {

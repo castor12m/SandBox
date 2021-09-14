@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SandBox
 {
-    public class Test_ConfigFileNasaStyle
+    public class Test_CB_ConfigFileNasaStyle
     {
         #region 접근자
-        private static Test_ConfigFileNasaStyle _instance = null;
+        private static Test_CB_ConfigFileNasaStyle _instance = null;
 
         private static readonly object padlock = new object();
-        public static Test_ConfigFileNasaStyle SharedInstance
+        public static Test_CB_ConfigFileNasaStyle SharedInstance
         {
             get
             {
@@ -21,7 +19,7 @@ namespace SandBox
                 {
                     if (_instance == null)
                     {
-                        _instance = new Test_ConfigFileNasaStyle();
+                        _instance = new Test_CB_ConfigFileNasaStyle();
                     }
 
                     return _instance;

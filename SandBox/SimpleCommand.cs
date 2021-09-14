@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace SandBox
 {
-    public class SampleCommand : ICommand
+    public class SimpleCommand : ICommand
     {
         public event EventHandler CanExecuteChanged
         {
@@ -29,7 +25,7 @@ namespace SandBox
             ExecuteDelegate?.Invoke(parameter);
         }
 
-        public SampleCommand(Func<object, bool> canExcute = null, Action<object> execute = null)
+        public SimpleCommand(Func<object, bool> canExcute = null, Action<object> execute = null)
         {
             CanExecuteDelegate = canExcute;
             ExecuteDelegate = execute;

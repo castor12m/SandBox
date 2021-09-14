@@ -3,13 +3,13 @@ using System;
 
 namespace SandBox
 {
-    public class Test_CallAppWithSSH
+    public class Test_CB_CallAppWithSSH
     {
         #region 접근자
-        private static Test_CallAppWithSSH _instance = null;
+        private static Test_CB_CallAppWithSSH _instance = null;
 
         private static readonly object padlock = new object();
-        public static Test_CallAppWithSSH SharedInstance
+        public static Test_CB_CallAppWithSSH SharedInstance
         {
             get
             {
@@ -17,7 +17,7 @@ namespace SandBox
                 {
                     if (_instance == null)
                     {
-                        _instance = new Test_CallAppWithSSH();
+                        _instance = new Test_CB_CallAppWithSSH();
                     }
 
                     return _instance;

@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace SandBox
 {
-    public class Test_CalculatePowerWithSampleRate
+    public class Test_MV_CalculatePowerWithSampleRate
     {
         #region 접근자
-        private static Test_CalculatePowerWithSampleRate _instance = null;
+        private static Test_MV_CalculatePowerWithSampleRate _instance = null;
 
         private static readonly object padlock = new object();
-        public static Test_CalculatePowerWithSampleRate SharedInstance
+        public static Test_MV_CalculatePowerWithSampleRate SharedInstance
         {
             get
             {
@@ -21,7 +21,7 @@ namespace SandBox
                 {
                     if (_instance == null)
                     {
-                        _instance = new Test_CalculatePowerWithSampleRate();
+                        _instance = new Test_MV_CalculatePowerWithSampleRate();
                     }
 
                     return _instance;
@@ -44,9 +44,9 @@ namespace SandBox
 
                 double ratio = sampleTime / stepTime;
 
-                numberofOccupied = (int)Math.Ceiling(ratio);     // 고유 기록
+                needStep = (int)Math.Ceiling(ratio);     // 고유 기록
 
-                restTime = numberofOccupied * stepTime - sampleTime;
+                restTime = needStep * stepTime - sampleTime;
 
                 int tempCount = 0;
 
@@ -60,7 +60,7 @@ namespace SandBox
 
                         if (arbitraryVal > 7)
                         {
-                            restStep = numberofOccupied;
+                            restStep = needStep;
                         }
                     }
                     #endregion
@@ -83,10 +83,10 @@ namespace SandBox
 
         private double standbyPower = 1;
         private double drivingPower = 3;
+
         private double sampleTime = 0.375;
         private double restTime = 0;
-
-        private int numberofOccupied = 0;
+        private int needStep = 0;
         private int restStep = 0;
         
         public double DoCalculate(double stepTime)
@@ -100,6 +100,8 @@ namespace SandBox
                 if(restStep > 0)
                 {
                     energy = restTime * standbyPower + sampleTime * drivingPower;
+
+                    energy *= stepTime;
 
                     restStep--;
                 }

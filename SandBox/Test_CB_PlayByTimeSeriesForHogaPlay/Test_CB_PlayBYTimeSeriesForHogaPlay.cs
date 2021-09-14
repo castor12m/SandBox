@@ -11,13 +11,13 @@ using System.Threading.Tasks;
 
 namespace SandBox
 {
-    public class Test_PlayBYTimeSeriesForHogaPlay
+    public class Test_CB_PlayBYTimeSeriesForHogaPlay
     {
         #region 접근자
-        private static Test_PlayBYTimeSeriesForHogaPlay _instance = null;
+        private static Test_CB_PlayBYTimeSeriesForHogaPlay _instance = null;
 
         private static readonly object padlock = new object();
-        public static Test_PlayBYTimeSeriesForHogaPlay SharedInstance
+        public static Test_CB_PlayBYTimeSeriesForHogaPlay SharedInstance
         {
             get
             {
@@ -25,7 +25,7 @@ namespace SandBox
                 {
                     if(_instance == null)
                     {
-                        _instance = new Test_PlayBYTimeSeriesForHogaPlay();
+                        _instance = new Test_CB_PlayBYTimeSeriesForHogaPlay();
                     }
 
                     return _instance;
@@ -62,7 +62,7 @@ namespace SandBox
         #endregion
 
         #region 생성자
-        public Test_PlayBYTimeSeriesForHogaPlay()
+        public Test_CB_PlayBYTimeSeriesForHogaPlay()
         {
             DateTime dateTime = playTimeStandardStartTime;
 
