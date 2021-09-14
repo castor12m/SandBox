@@ -32,7 +32,8 @@ namespace SandBox
 
         public MainWindowViewModel()
         {
-            DoNavigate(ShowPage.Codebehind);
+            //DoNavigate(ShowPage.Codebehind);
+            DoNavigate(ShowPage.Mvvm);
         }
 
         public ICommand CmdShowPageCodebehind => new SimpleCommand(o => true, x => DoNavigate(ShowPage.Codebehind));

@@ -28,14 +28,14 @@ namespace SandBox
             set { _bindingTest2 = value; OnPropertyChanged(); }
         }
 
-        private string _bindingTest3 = "Step";
+        private string _bindingTest3 = "Idle";
         public string BindingTest3
         {
             get { return _bindingTest3; }
             set { _bindingTest3 = value; OnPropertyChanged(); }
         }
 
-        private string _bindingTest4 = "";
+        private string _bindingTest4 = "Step";
         public string BindingTest4
         {
             get { return _bindingTest4; }
@@ -120,7 +120,7 @@ namespace SandBox
         {
             try
             {
-                ModuleDevConcept.Step();
+                ModuleDevConcept.Idle();
             }
             catch (Exception ex)
             {
@@ -132,8 +132,7 @@ namespace SandBox
         {
             try
             {
-
-
+                ModuleDevConcept.Step();
             }
             catch (Exception ex)
             {
@@ -145,7 +144,6 @@ namespace SandBox
         {
             try
             {
-
 
             }
             catch (Exception ex)
