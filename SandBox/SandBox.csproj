@@ -99,16 +99,19 @@
     </Compile>
     <Compile Include="PageUseMvvmViewModel.cs" />
     <Compile Include="SimpleCommand.cs" />
-    <Compile Include="Test_MV_CalculatePowerWithSampleRate\Test_MV_CalculatePowerWithSampleRate.cs" />
-    <Compile Include="Test_CB_CallAppWithSSH\Test_CallAppWithSSH.cs" />
-    <Compile Include="Test_XX_CallMethod\Test_XX_CallMethod.cs" />
-    <Compile Include="Test_CB_ConfigFileNasaStyle\Test_CB_ConfigFileNasaStyle.cs" />
-    <Compile Include="Test_XX_DelayFunction\Test_XX_DelayFunction.cs" />
-    <Compile Include="Test_XX_NetMq\Test_XX_NetMq.cs" />
-    <Compile Include="Test_CB_PlayByTimeSeriesForHogaPlay\Test_CB_PlayBYTimeSeriesForHogaPlay.cs" />
-    <Compile Include="Test_MV_SimModuleDevConcept\Test_MV_SimModuleDevConcept.cs" />
-    <Compile Include="Test_MV_SimModuleDevConcept\Test_MV_SimModuleDevConcept_VM.cs" />
-    <Compile Include="Test_CB_TreeView\Test_CB_TreeView.cs" />
+    <Compile Include="1_MVVM\Test_MV_CalculatePowerWithSampleRate\Test_MV_CalculatePowerWithSampleRate.cs" />
+    <Compile Include="0_Codebehind\Test_CB_CallAppWithSSH\Test_CallAppWithSSH.cs" />
+    <Compile Include="2_Extra\Test_XX_CallMethod\Test_XX_CallMethod.cs" />
+    <Compile Include="0_Codebehind\Test_CB_ConfigFileNasaStyle\Test_CB_ConfigFileNasaStyle.cs" />
+    <Compile Include="2_Extra\Test_XX_DelayFunction\Test_XX_DelayFunction.cs" />
+    <Compile Include="2_Extra\Test_XX_ListStringInputRefectoring\Test_XX_ListStringInputRefectoring.cs" />
+    <Compile Include="2_Extra\Test_XX_NetMq\Test_XX_NetMq.cs" />
+    <Compile Include="0_Codebehind\Test_CB_PlayByTimeSeriesForHogaPlay\Test_CB_PlayBYTimeSeriesForHogaPlay.cs" />
+    <Compile Include="1_MVVM\Test_MV_SimModuleDevConcept\Test_MV_SimModuleDevConcept.cs" />
+    <Compile Include="1_MVVM\Test_MV_SimModuleDevConcept\Test_MV_SimModuleDevConcept_VM.cs" />
+    <Compile Include="0_Codebehind\Test_CB_TreeView\Test_CB_TreeView.cs" />
+    <Compile Include="2_Extra\Test_XX_SpeedTest_Split_Contain\Test_XX_SpeedTest_Split_Contain.cs" />
+    <Compile Include="Test_XX_VM.cs" />
     <Compile Include="ViewModelBase.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

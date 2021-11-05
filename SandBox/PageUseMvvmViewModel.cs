@@ -1,6 +1,6 @@
 ﻿namespace SandBox
 {
-    class PageUseMvvmViewModel : Test_MV_SimModuleDevConcept_VM
+    class PageUseMvvmViewModel : Test_XX_VM
     {
     }
 }
