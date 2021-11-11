@@ -7,29 +7,6 @@ using System.Threading.Tasks;
 
 namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
 {
-    class NasaIndex
-    {
-        /// <summary>
-        ///  Parameter Index
-        /// </summary>
-        public int pi = 0;
-
-        /// <summary>
-        ///  Sub Index
-        /// </summary>
-        public int si = 0;
-
-        /// <summary>
-        ///  number of Element
-        /// </summary>
-        public int en = 0;
-
-        /// <summary>
-        ///  Skip Index
-        /// </summary>
-        public int ki = 0;  
-    }
-
     public enum NasaTextType
     { 
         cmd,
@@ -40,22 +17,10 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
         none = 10
     }
 
-
-    
-
     class NasaTextStyle
     {
-        static private Dictionary<string, NasaIndex> decodeTable = new Dictionary<string, NasaIndex>();
-
         public NasaTextStyle()
         {
-            //decodeTable.Add("42: Spacecraft Description File", new NasaIndex() { pi = 1, si = 1, en = 5 });
-            //decodeTable.Add("Orbit Parameters", new NasaIndex() { pi = 1, si = 2, en = 5 });
-            //decodeTable.Add("Initial Attitude", new NasaIndex() { pi = 1, si = 3, en = 5 });
-            //decodeTable.Add("Dynamics Flags", (1, 4));
-
-            //decodeTable.Add("Dynamics Flags", (1, 4));
-
             this.LoadFile("42_cmd.txt");
             //this.LoadFile("42_ipc.txt");
             //this.LoadFile("42_orb.txt");
@@ -103,27 +68,6 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
             {
                 return (false, string.Empty, string.Empty);
             }
-        }
-
-        public bool isJunkLine()
-        {
-            return true;
-        }
-
-        public NasaIndex DecodeString(string str)
-        {
-            //var result = 
-            NasaIndex rtn = null;
-
-            if (decodeTable.TryGetValue(str, out rtn))
-            {
-                return rtn;
-            }
-            else
-            {
-                return null;
-            }
-
         }
 
         public NasaTextType DecodeFirstString(string str)
@@ -209,7 +153,7 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
             }
         }
 
-        public readonly string[] ignoreList = { " ", "//", "#", "\n", "\r", "%" };
+        private readonly string[] ignoreList = { " ", "//", "#", "\n", "\r", "%" };
         public NasaDataType_CMD GetCMDText(string[] fs)
         {
             int lineNumber = 1;
@@ -300,7 +244,6 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
             return nasaData;
         }
 
-
         public NasaDataType_ORB GetOrbitText(string[] fs)
         {
             int lineNumber = 1;
@@ -374,7 +317,6 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
 
             return nasaData;
         }
-
 
         public NasaDataType_SC GetSCText(string[] fs)
         {
@@ -714,7 +656,6 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
             return nasaData;
         }
 
-
         public NasaDataType_SIM GetSimText(string[] fs)
         {
             int lineNumber = 1;
@@ -805,7 +746,6 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
 
             return nasaData;
         }
-
 
         public string[] SafeSetValue((bool, string, string)input)
         {
