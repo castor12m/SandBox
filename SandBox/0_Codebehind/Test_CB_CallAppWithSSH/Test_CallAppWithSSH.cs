@@ -1,4 +1,5 @@
-﻿using Renci.SshNet;
+﻿using CommandLine;
+using Renci.SshNet;
 using System;
 
 namespace SandBox
@@ -29,6 +30,11 @@ namespace SandBox
         #region 매소드
         public void DoSomething()
         {
+            Parser.Default.ParseArguments<CommandLineOptions>(new string[] {"-c sdfsf" }).WithParsed<CommandLineOptions>(o =>
+            {
+               
+            });
+
             var ci = new ConnectionInfo("127.0.0.1",
                     "user",
                     new PasswordAuthenticationMethod("user", "user"));

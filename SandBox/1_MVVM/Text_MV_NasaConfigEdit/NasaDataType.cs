@@ -326,7 +326,7 @@ namespace SandBox._1_MVVM.Text_MV_NasaConfigEdit
 
     }
 
-    public class GroundStationParam
+    class GroundStationParam
     {
         public string[] Exists_World_Lng_Lat_Label = null;
     }
